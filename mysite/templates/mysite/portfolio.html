@@ -1,0 +1,199 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+
+  <script src="{% static 'js/preferred_color.js' %}"></script>
+
+  <!-- Include Picocss library from CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+  <!--  Include the VT323 font from google fonts:-->
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+  <!--  Include Red Hat Mono Font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@700&display=swap" rel="stylesheet">
+
+  <!--  Include IBM Plex Mono Font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
+
+  <!--  Include Press Start 2P Font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/portfolio_style.css' %}">
+
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar pico-navbar" data-navbar-hidden="true">
+    <div class="container">
+      <ul class="navbar-nav pico-navbar-nav">
+        <li class="nav-item pico-nav-item"><a href="#about" class="nav-link pico-nav-link">About</a></li>
+        <li class="nav-item pico-nav-item"><a href="#skills" class="nav-link pico-nav-link">Skills</a></li>
+        <li class="nav-item pico-nav-item"><a href="#projects" class="nav-link pico-nav-link">Projects</a></li>
+        <li class="nav-item pico-nav-item"><a href="#contact" class="nav-link pico-nav-link">Contact</a></li>
+        <li class="nav-item pico-nav-item">
+          <!-- Dark Mode Toggle Button -->
+          <div class="dark-mode-toggle" style="position: absolute; right: 20px; top: 20px;">
+            <label class="dark-mode-toggle-label" for="dark-mode-toggle-checkbox" style="cursor: pointer; display: inline-block; position: relative; user-select: none;">
+              <input id="dark-mode-toggle-checkbox" type="checkbox" style="display: none;">
+              <div class="dark-mode-toggle-icon" style="background-color: #ccc; border-radius: 50%; cursor: pointer; height: 30px; left: 0; position: absolute; top: 0; width: 30px;"></div>
+            </label>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <hr>
+
+
+  <!-- About Me Section -->
+  <section id="about" class="section pico-section">
+    <div class="container">
+      <h2 class="section-title">Yonatan Rotem</h2>
+      <p class="section-text">As a proactive and knowledgeable professional with a background in Financial Services and Client Services Management, I have a track record of achieving great results and providing outstanding support to clients and businesses. I have exceptional analysis and problem solving skills, and I am always looking for ways to deliver innovative solutions that align with business strategies and goals.</p>
+      <p class="section-text">In recent years, I have become passionate about software development and have gained experience in various programming languages including Python, JavaScript, HTML, and CSS, as well as proficiency in the Microsoft Power Suite. I am excited to transition my career into this field and use my skills and expertise to create impactful and meaningful software solutions.</p>
+      <p class="section-text">Through my portfolio website, I hope to showcase my abilities and share my projects with you. Thank you for visiting and please feel free to reach out if you have any questions or opportunities for collaboration.</p>
+    </div>
+  </section>
+
+  <!-- My Skills Section -->
+  <section id="skills" class="section pico-section">
+    <div class="container">
+      <h2 class="section-title">My Skills</h2>
+      <p class="section-subheader"><small>Click a skill to find out more</small></p>
+      <div id="skills-grid">
+        {% for skill in skills %}
+          <div class="skill" style="background-color: {{ skill.color }}" data-name="{{ skill.name }}" data-description="{{ skill.description }}">{{ skill.name }}</div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Skill Card -->
+    <div class="card" id="skill-card">
+      <canvas id="skill-card-canvas"></canvas>
+      <button class="skill-card-close-btn">&times;</button>
+      <h3 id="skill-name" class="card-title"></h3>
+      <p class="level" id="skill-level"></p>
+      <p class="description" id="skill-description"></p>
+    </div>
+
+  </section>
+  <script src="{% static 'js/disco_subheader.js' %}"></script>
+
+
+  <!-- Include Masonry library from CDN -->
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+  <!-- Initialize Masonry -->
+  <script src="{% static 'js/init_masonry.js' %}"></script>
+
+
+
+  <script src="{% static 'js/modal.js' %}"></script>
+
+  <!-- Portfolio Section -->
+  <section id="projects" class="section pico-section">
+    <div class="container">
+      <h2 class="section-title">Portfolio</h2>
+
+      <div class="grid">
+        {% for project in projects %}
+        <div>
+          <a href="#"><h4 class="project-title"><strong>{{ project.name }}</strong></h4></a>
+          <div class="project-container">
+            <img src="{{ project.image_url }}" alt="{{ project.image_url }}" class="project-image hover-image" style="width: 200px; height: 200px;">
+            <span class="open-text" data-target="modal-{{ project.id }}" onClick="toggleModal(event)">Open</span>
+          </div>
+<!--          <button class="secondary"-->
+<!--            id="open_button"-->
+<!--            data-target="modal-{{ project.id }}"-->
+<!--            onClick="toggleModal(event)">-->
+<!--            Open-->
+<!--          </button>-->
+          <!-- Modal -->
+          <dialog id="modal-{{ project.id }}" class="modal">
+            <article>
+
+              <header>
+                <p
+                  class="outline"
+                  id="project-close"
+                  data-target="modal-{{ project.id }}"
+                  onClick="toggleModal(event)">
+                  X
+                </p>
+                <h3 id="modalh3">{{ project.name }}</h3>
+              </header>
+              <div>
+                {{ project.description|safe }}
+              </div>
+              <footer>
+                <a href="#cancel"
+                  role="button"
+                  class="secondary"
+                  data-target="modal-{{ project.id }}"
+                  onClick="toggleModal(event)">
+                  Cancel
+                </a>
+                <a href="{{ project.project_url }}"
+                  role="button"
+                  data-target="modal-{{ project.id }}"
+                  target="_blank">
+                  Go to project
+                </a>
+              </footer>
+            </article>
+          </dialog>
+
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Contact Me Section -->
+  <section id="contact" class="section pico-section">
+    <div class="container">
+      <h2 class="section-title">Contact Me</h2>
+      <form class="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea class="form-control" id="message" rows="3" placeholder="Enter your message"></textarea>
+        </div>
+        <button type="submit" class="btn pico-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="section pico-section pico-section-dark">
+    <div class="container pico-container">
+      <p class="pico-text-center pico-text-muted">Copyright &copy; {{ current_year }} Yonatan Rotem</p>
+    </div>
+  </footer>
+
+
+
+  <!-- Smooth Scrolling Script -->
+  <script src="{% static 'js/smooth-scrolling.js' %}"></script>
+  <!-- Add a script to handle the toggle button -->
+  <script src="{% static 'js/light_dark_toggle.js' %}"></script>
+
+</body>
+</html>

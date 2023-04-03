@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+
+  <!--  Navbar Theme Changer-->
+  <script defer src="{% static 'js/themer.js' %}"></script>
+
+  <!--  Add draggable library for the skill cards-->
+  <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.13/lib/draggable.bundle.js"></script>
+
+<!--  <script src="{% static 'js/skill_card.js' %}"></script>-->
+
+
+
+
+  <!-- Include Picocss library from CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+  <!--  Include the VT323 font from google fonts:-->
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+  <!--  Include IBM Plex Mono Font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
+
+  <!--  Include Press Start 2P Font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!--  <link rel="stylesheet" href="{% static 'css/portfolio_style.css' %}">-->
+</head>
+<body>
+  {% block navbar %}
+  {% include 'mysite/navbar.html' %}
+  {% endblock navbar %}
+
+  <div class="non-navbar">
+    <!-- About Me Section -->
+    {% block about %}
+    {% include 'mysite/about.html' %}
+    {% endblock about %}
+
+
+    <!-- My Skills Section -->
+    {% block skills %}
+    {% include 'mysite/skills.html' %}
+    {% endblock skills %}
+
+
+
+    <!-- Portfolio Section -->
+    {% block portfolio %}
+    {% include 'mysite/projects.html' %}
+    {% endblock portfolio %}
+
+
+    <!-- Contact Me Section -->
+    {% block contact %}
+    {% include 'mysite/contact.html' %}
+    {% endblock contact %}
+
+    <!-- Footer Section -->
+    <footer class="section pico-section pico-section-dark">
+      <div class="container pico-container">
+        <p class="pico-text-center pico-text-muted">Copyright &copy; {{ current_year }} Yonatan Rotem</p>
+      </div>
+    </footer>
+  </div>
+
+  <!--  Load jquery-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!--  Load Smooth Scrolling Script-->
+  <script src="{% static 'js/scrolla.js' %}"></script>
+
+  <!-- Add a script to handle the toggle button -->
+  <script src="{% static 'js/light_dark_toggle.js' %}"></script>
+
+  <script>
+      window.onload = function() {
+          var navbar = document.querySelector('.navbar');
+          var picoSection = document.querySelector('.non-navbar');
+          var navbarWidth = navbar.getBoundingClientRect().width;
+
+          function adjustPicoSectionMargin() {
+              picoSection.style.marginLeft = navbarWidth + 'px';
+              picoSection.style.paddingRight = navbarWidth + 'px';
+          }
+
+          if (matchMedia('(min-width: 600px)').matches) {
+              adjustPicoSectionMargin();
+          } else {
+              picoSection.style.marginLeft = "0";
+              picoSection.style.paddingRight = "0";
+          }
+      }
+  </script>
+
+
+</body>
+</html>
+
+</body>
+</html>

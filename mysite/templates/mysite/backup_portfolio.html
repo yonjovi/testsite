@@ -1,0 +1,211 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+
+  <!-- Include Picocss library from CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+<!-- Custom styles -->
+<!--<style>-->
+<!--  body {-->
+<!--    margin: 0;-->
+<!--    font-family: sans-serif;-->
+<!--    background-color: #ffffea; /* closest to yellow/white */-->
+<!--  }-->
+
+<!--  /* Navbar */-->
+<!--  .pico-navbar {-->
+<!--    background-color: #d7f9f8; /* light blue */-->
+<!--  }-->
+
+<!--  /* About Me Section */-->
+<!--  .pico-section#about {-->
+<!--    color: #352f3f; /* dark purple */-->
+<!--  }-->
+
+<!--  /* My Skills Section */-->
+<!--  .pico-section#skills {-->
+<!--    color: #d6e6ff; /* light blue */-->
+<!--  }-->
+
+<!--  /* Portfolio Section */-->
+<!--  .pico-section#projects {-->
+<!--    color: #fff0d4; /* light yellow */-->
+<!--  }-->
+
+<!--  /* Contact Section */-->
+<!--  .pico-section#contact {-->
+<!--    color: #fbe0e0; /* light pink */-->
+<!--  }-->
+
+<!--  /* Footer */-->
+<!--  .pico-footer {-->
+<!--    background-color: #e5d4ef; /* light purple */-->
+<!--  }-->
+<!--</style>-->
+
+  <style>
+  /* Add styles for dark mode */
+  .dark-mode {
+    background-color: #352F3F;
+    color: #ECECDC;
+  }
+  .dark-mode .section-title {
+    color: #ECECDC;
+  }
+  .dark-mode .project-title {
+    color: #ECECDC;
+  }
+  .dark-mode .skill-title {
+    color: #ECECDC;
+  }
+  .dark-mode .skill-level {
+    background-color: #ECECDC;
+  }
+  .dark-mode .section-text {
+  color: #ECECDC;
+  }
+</style>
+
+</head>
+<body>
+
+<!-- Navbar -->
+  <nav class="navbar pico-navbar">
+    <div class="container">
+      <ul class="navbar-nav pico-navbar-nav">
+        <li class="nav-item pico-nav-item"><a href="#about" class="nav-link pico-nav-link">About</a></li>
+        <li class="nav-item pico-nav-item"><a href="#skills" class="nav-link pico-nav-link">Skills</a></li>
+        <li class="nav-item pico-nav-item"><a href="#projects" class="nav-link pico-nav-link">Projects</a></li>
+        <li class="nav-item pico-nav-item"><a href="#contact" class="nav-link pico-nav-link">Contact</a></li>
+        <li class="nav-item pico-nav-item">
+          <!-- Dark Mode Toggle Button -->
+          <div class="dark-mode-toggle" style="position: absolute; right: 20px; top: 20px;">
+            <label class="dark-mode-toggle-label" for="dark-mode-toggle-checkbox" style="cursor: pointer; display: inline-block; position: relative; user-select: none;">
+              <input id="dark-mode-toggle-checkbox" type="checkbox" style="display: none;">
+              <div class="dark-mode-toggle-icon" style="background-color: #ccc; border-radius: 50%; cursor: pointer; height: 30px; left: 0; position: absolute; top: 0; width: 30px;"></div>
+            </label>
+          </div>
+        </li>
+
+      </ul>
+      <button class="navbar-toggler pico-navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon pico-navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- About Me Section -->
+  <section id="about" class="section pico-section">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in efficitur diam. Sed at dolor et diam auctor luctus. Nam auctor, diam non ultricies consequat, tortor orci laoreet tortor, vel gravida velit velit ac nibh. Aliquam tempus ullamcorper nunc. Morbi eget maximus justo. Sed dignissim nisl non nibh iaculis, eu porta enim posuere. Duis scelerisque nulla vel nisi varius, vel dictum nisi viverra. Maecenas placerat eleifend ultricies. Ut lacus ligula, consequat quis laoreet quis, iaculis sit amet dui. Ut euismod tellus at diam dictum, et luctus lacus elementum. Quisque eu lectus euismod, tincidunt justo at,</p>
+    </div>
+  </section>
+
+  <!-- My Skills Section -->
+      <section id="skills" class="section pico-section">
+      <div class="container">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-list">
+          {% for skill in skills %}
+          <div class="skill">
+            <details style="width: 50%;">
+              <summary role="button" class="secondary" style="background-color: #F8FAFA; height: auto;">
+                <div class="grid">
+                  <small class="skill-title" style="color: #8D8FAC">{{ skill.name }}</small>
+                  <small class="skill-level"  style="color: #8D8FAC">{{ skill.level }}%</small>
+                </div>
+<!--                <div class="skill-level" style="width: {{ skill.level }}%"></div>-->
+              </summary>
+              <p>test test</p>
+            </details>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+
+  <!-- Portfolio Section -->
+    <section id="projects" class="section pico-section">
+      <div class="container">
+        <h2 class="section-title">Portfolio</h2>
+
+        <div class="grid">
+          {% for project in projects %}
+          <div>
+            <a href="#"><h4 class="project-title">{{ project.name }}</h4></a>
+            <img src="{{ project.image_url }}" alt="{{ project.image_url }}" class="project-image" style="width: 200px; height: 200px;">
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </section>
+
+
+  <!-- Contact Me Section -->
+  <section id="contact" class="section pico-section">
+    <div class="container">
+      <h2 class="section-title">Contact Me</h2>
+      <form class="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea class="form-control" id="message" rows="3" placeholder="Enter your message"></textarea>
+        </div>
+        <button type="submit" class="btn pico-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="section pico-section pico-section-dark">
+    <div class="container pico-container">
+      <p class="pico-text-center pico-text-muted">Copyright &copy; {{ current_year }} Your Name</p>
+    </div>
+  </footer>
+
+<!--  &lt;!&ndash; Dark Mode Toggle &ndash;&gt;-->
+<!--  <div class="dark-mode-toggle pico-dark-mode-toggle">-->
+<!--    <input type="checkbox" id="dark-mode-toggle" class="dark-mode-toggle-checkbox">-->
+<!--    <label for="dark-mode-toggle" class="dark-mode-toggle-label pico-dark-mode-toggle-label"></label>-->
+<!--  </div>-->
+
+  <!-- Smooth Scrolling Script -->
+  <script src="{% static 'js/smooth-scrolling.js' %}"></script>
+  <!-- Add a script to handle the toggle button -->
+  <script>
+    // Get the dark mode toggle button
+    const toggle = document.querySelector('.dark-mode-toggle-label');
+    // Get the dark mode toggle checkbox
+    const checkbox = document.querySelector('#dark-mode-toggle-checkbox');
+
+    // Toggle dark mode when the button is clicked
+    toggle.addEventListener('click', () => {
+      // If dark mode is enabled
+      if (checkbox.checked) {
+        // Disable dark mode
+        document.body.classList.remove('dark-mode');
+      } else {
+        // Enable dark mode
+        document.body.classList.add('dark-mode');
+      }
+    });
+  </script>
+</body>
+</html>

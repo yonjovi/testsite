@@ -1,0 +1,32 @@
+   {% load static %}
+
+    <!-- My Skills Section -->
+    <section id="skills" class="section pico-section">
+      <div class="container">
+        <h2 class="section-title skill-title">My Skills</h2>
+<!--        <p class="section-subheader"><small>Click on a skill to find out more!</small></p>-->
+        <div id="skills-grid">
+          {% for skill in skills %}
+            <div class="grid-item skill" style="background-color: {{ skill.color }}; position: relative;" data-name="{{ skill.name }}" data-description="{{ skill.description }}">{{ skill.name }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Skill Card -->
+      <div class="card" id="skill-card">
+        <canvas id="skill-card-canvas"></canvas>
+        <button class="skill-card-close-btn">&times;</button>
+        <h3 id="skill-name" class="card-title"></h3>
+        <p class="level" id="skill-level"></p>
+        <p class="description" id="skill-description"></p>
+      </div>
+
+    </section>
+    <script src="{% static 'js/disco_subheader.js' %}"></script>
+
+
+    <!-- Include Masonry library from CDN -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+    <!-- Initialize Masonry -->
+    <script src="{% static 'js/init_masonry.js' %}"></script>

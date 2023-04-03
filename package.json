@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "@picocss/pico": "^1.5.6",
+    "latest-version": "^7.0.0",
+    "three": "^0.148.0"
+  }
+}

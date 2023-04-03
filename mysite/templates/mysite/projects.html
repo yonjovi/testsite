@@ -1,0 +1,59 @@
+{% load static %}
+
+<script src="{% static 'js/modal.js' %}"></script>
+
+    <!-- Portfolio Section -->
+    <section id="projects" class="section pico-section">
+      <div class="container">
+        <h2 class="section-title projects-title">Portfolio</h2>
+
+        <div class="grid grid-center">
+          {% for project in projects %}
+          <div>
+            <a href="#"><h4 class="project-title"><strong>{{ project.name }}</strong></h4></a>
+            <div class="project-container" data-target="modal-{{ project.id }}" onClick="toggleModal(event)">
+              <img src="{{ project.image_url }}" alt="{{ project.image_url }}" class="project-image hover-image" style="width: 200px; height: 200px;">
+              <span class="open-text">Open</span>
+            </div>
+
+            <!-- Modal -->
+            <dialog id="modal-{{ project.id }}" class="modal">
+              <article>
+
+                <header>
+                  <p
+                    class="outline"
+                    id="project-close"
+                    data-target="modal-{{ project.id }}"
+                    onClick="toggleModal(event)">
+                    X
+                  </p>
+                  <h3 id="modalh3">{{ project.name }}</h3>
+                </header>
+                <div>
+                  {{ project.description|safe }}
+                </div>
+                <footer>
+                  <a href="#cancel"
+                    role="button"
+                    class="secondary"
+                    data-target="modal-{{ project.id }}"
+                    onClick="toggleModal(event)">
+                    Cancel
+                  </a>
+                  <a href="{{ project.project_url }}"
+                    role="button"
+                    data-target="modal-{{ project.id }}"
+                    target="_blank">
+                    Go to project
+                  </a>
+                </footer>
+              </article>
+            </dialog>
+
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </section>
